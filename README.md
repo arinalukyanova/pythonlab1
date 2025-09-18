@@ -45,3 +45,13 @@ print(hours,":",min)
 ![скриншот 4](/images/lab01/04_minutes_to_hhmm.png)
 
 
+Задание 5
+```python
+name = input("Имя: ").split()
+s = 0
+for i in name:
+    s += len(i)
+print("Инициалы:",f"{name[0][0]}{name[1][0]}{name[2][0]}",".") 
+print("Длина (символов):",s)
+```
+![скриншот 4](/images/lab01/04_minutes_to_hhmm.png)
