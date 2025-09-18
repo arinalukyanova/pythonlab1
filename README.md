@@ -35,3 +35,13 @@ print("Итого к оплате:",round(total,2),"P")
 ![скриншот 3](/images/lab01/03_discount_vat.py.png)
 
 
+Задание 4
+```python
+m=int(input())
+hours=m//60
+min=m%60
+print(hours,":",min)
+```
+![скриншот 4](/images/lab01/04_minutes_to_hhmm.png)
+
+
