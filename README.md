@@ -28,11 +28,11 @@ vat=float(input("НДС: ").replace(",","."))
 base = price * (1 - discount/100)
 vat_amount = base * (vat/100)
 total = base + vat_amount
-print("База после скидки:",round(base,2),"P")
-print("НДС:",round(vat_amount,2),"P")
-print("Итого к оплате:",round(total,2),"P")
+print("База после скидки:",round(base,2),"₽")
+print("НДС:",round(vat_amount,2),"₽")
+print("Итого к оплате:",round(total,2),"₽")
 ```
-![скриншот 3](/images/lab01/03_discount_vat.py.png)
+![скриншот 3](/images/lab01/03_disciunt_vat.png)
 
 
 Задание 4
