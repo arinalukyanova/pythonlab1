@@ -54,4 +54,4 @@ for i in name:
 print("Инициалы:",f"{name[0][0]}{name[1][0]}{name[2][0]}",".") 
 print("Длина (символов):",s)
 ```
-![скриншот 4](/images/lab01/04_minutes_to_hhmm.png)
+![скриншот 5](/images/lab01/05_initials_and_len.png)
