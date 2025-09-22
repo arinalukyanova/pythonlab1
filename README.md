@@ -55,3 +55,18 @@ print("Инициалы:",f"{name[0][0]}{name[1][0]}{name[2][0]}",".")
 print("Длина (символов):",s)
 ```
 ![скриншот 5](/images/lab01/05_initials_and_len.png)
+
+
+Задание 6
+```python
+n=int(input())
+tr,fl=0,0
+for i in range(n):
+    a,b,c,d=list(input().split())
+    if d=="True":
+        tr+=1
+    else:
+        fl+=1
+print(tr,fl)
+```
+![скриншот 6](/images/lab01/06_True_or_False.png)
