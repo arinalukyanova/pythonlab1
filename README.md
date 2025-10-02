@@ -90,3 +90,47 @@ for i in n:
 print(n[a::b-a])
 ```
 ![скриншот 7](/images/lab01/07_Hello.png)
+
+
+##Лабораторная работа 2
+
+Задание 1.1
+```python
+def min_max(nums:list[int|float])-> tuple[int|float,int|float]:
+    if len(nums)==0:
+        raise ValueError("передан пустой массив")
+    else:
+        return (min(nums),max(nums))
+nums=[1.5, 2, 2.0, -3.1]
+print(min_max(nums))
+```
+![скриншот 8](/images/lab02/arrays.png)
+![скриншот 9](/images/lab02/arrays1.png)
+
+
+Задание 1.2
+```python
+def unique_sorted(nums: list[float | int]) -> list[float | int]:
+    return list(set(nums))
+nums=[1.0, 1, 2.5, 2.5, 0]
+print(unique_sorted(nums))
+```
+![скриншот 10](/images/lab02/arrays2.1.png)
+![скриншот 11](/images/lab02/arrays2.2.png)
+
+
+Задание 1.3
+```python
+def flatten(mat: list[list | tuple]) -> list:
+    res=list()
+    for n in mat:
+        if type(n) != type([]) and type(n) != type(()):
+            raise TypeError("строка не строка строки матрицы")
+        for i in n:
+            res.append(i)
+    return res
+mat=[[1], [], [2, 3]]
+print(flatten(mat))
+```
+![скриншот 12](/images/lab02/arrays3.2.png)
+![скриншот 13](/images/lab02/arrays3.2.png)
