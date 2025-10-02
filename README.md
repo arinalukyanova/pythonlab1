@@ -132,7 +132,7 @@ def flatten(mat: list[list | tuple]) -> list:
 mat=[[1], [], [2, 3]]
 print(flatten(mat))
 ```
-![скриншот 12](/images/lab02/arrays3.2.png)
+![скриншот 12](/images/lab02/arrays3.1.png)
 ![скриншот 13](/images/lab02/arrays3.2.png)
 
 

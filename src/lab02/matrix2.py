@@ -4,4 +4,4 @@ def row_sums(mat: list[list[float | int]]) -> list[float]:
     sums=[sum(row) for row in mat]
     return sums 
 mat=[[1, 2, 3], [4, 5, 6]]
-print(row_sums(mat))
+print(row_sums(mat)) 
