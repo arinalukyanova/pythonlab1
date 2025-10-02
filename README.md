@@ -134,3 +134,32 @@ print(flatten(mat))
 ```
 ![скриншот 12](/images/lab02/arrays3.2.png)
 ![скриншот 13](/images/lab02/arrays3.2.png)
+
+
+Задание 2.1
+```python
+def transpose(mat: list[list[float | int]]) -> list[list]:
+    if len(mat)>0 and any(len(row)!=len(mat[0]) for row in mat):
+        raise ValueError('Рванная матрица')
+    return[list(row) for row in zip(*mat)]
+mat=[[1, 2], [3, 4]]
+print(transpose(mat))
+```
+![скриншот 14](/images/lab02/matrix.png)
+![скриншот 15](/images/lab02/matrix1.png)
+
+
+Задание 2.2
+```python
+def row_sums(mat: list[list[float | int]]) -> list[float]:
+    if len(mat)>0 and any(len(row)!=len(mat[0]) for row in mat):
+        raise ValueError('Рванная матрица')
+    sums=[sum(row) for row in mat]
+    return sums 
+mat=[[1, 2, 3], [4, 5, 6]]
+print(row_sums(mat))
+```
+![скриншот 16](/images/lab02/matrix2.1.png)
+![скриншот 17](/images/lab02/matrix2.2.png)
+
+
