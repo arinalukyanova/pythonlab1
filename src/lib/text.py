@@ -48,4 +48,4 @@ def top_n(freq: Dict[str, int], n: int = 5) -> List[Tuple[str, int]]:
     return sorted_items[:n]
 text = {"aa":2,"bb":2,"cc":1}
 result = top_n(text, n=2)
-print(result)
+##print(result)
