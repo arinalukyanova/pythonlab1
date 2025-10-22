@@ -6,6 +6,6 @@ def read_text(path: str | Path, encoding: str = "utf-8") -> str:
     text=f.readlines()
     text=lib.text.normalize(text)
     return text
-path=
+path=input()
 result=read_text(path)
 print(result)
