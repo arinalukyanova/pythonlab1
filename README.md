@@ -273,7 +273,7 @@ print(result2)
 
 Задание 1.4
 ```python
-def top_n(freq: Dict[str, int], n: int = 5) -> List[Tuple[str, int]]:
+def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
     items = freq.items()
     sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
     return sorted_items[:n]

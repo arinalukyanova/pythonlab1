@@ -40,12 +40,10 @@ result2=count_freq(tokens)
 ##print(count_freq(tokenize(normalize(text))))
 
 
-from typing import List, Dict, Tuple
-
-def top_n(freq: Dict[str, int], n: int = 5) -> List[Tuple[str, int]]:
+def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
     items = freq.items()
     sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
     return sorted_items[:n]
 text = {"aa":2,"bb":2,"cc":1}
 result = top_n(text, n=2)
-##print(result)
+print(result)
