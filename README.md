@@ -306,3 +306,56 @@ if __name__ == '__main__':
     text_stats(text)
 ```
 ![скриншот 25](/images/lab03/text_stats.png)
+
+
+## Лабораторная работа 4
+
+Задание 1
+```python
+import csv
+from pathlib import Path
+from lib.text import normalize
+
+def read_text(path: str | Path, encoding: str = "utf-8") -> str:
+    p = Path(path)
+    with p.open("r", encoding=encoding) as f:
+        text = f.read()
+    return normalize(text)
+
+def write_csv(rows: list[tuple | list], path: str | Path,
+              header: tuple[str, ...] | None = None) -> None:
+    p = Path(path)
+    rows = list(rows)
+    if not rows and header is None:
+            raise ValueError
+    row_length = len(rows[0]) if rows else len(header)
+    for r in rows:
+        if len(r) != row_length:
+            raise ValueError
+    if header is not None and len(header) != row_length:
+        raise ValueError
+    with p.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        if header is not None:
+            w.writerow(header)
+        for r in rows:
+            w.writerow(r)
+```
+
+
+Задание 2
+```python
+from pathlib import Path
+from lab04.io_txt_csv import read_text,write_csv
+from lib.text import count_freq, normalize, tokenize
+from lab03.text_stats import text_stats
+path = Path(input())
+pathoutput = Path(input())
+text = normalize(read_text(path))
+count_f = count_freq(tokenize(text))
+rows = list(count_f.items())
+write_csv(rows, pathoutput, ('word', 'count'))
+text_stats(text)
+```
+![скриншот 26](/images/lab04/text_report.png)
+![скриншот 27](/images/lab04/output.csv.png)

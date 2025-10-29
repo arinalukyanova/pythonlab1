@@ -1,12 +1,12 @@
 import lib.text
 
-def text_stats(text: str) -> str:
+def text_stats(text: str, n: int = 5) -> str:
     norm_text = lib.text.normalize(text)
     tokens = lib.text.tokenize(norm_text)
     freq = lib.text.count_freq(tokens)
     total_words = len(tokens)
     unique_words = len(freq)
-    top_words = lib.text.top_n(freq, n = 5)
+    top_words = lib.text.top_n(freq,n)
     print(f'Всего слов: {total_words}')
     print(f'Уникальных слов: {unique_words}')
     print('Топ-5:')
