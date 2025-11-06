@@ -47,3 +47,49 @@ def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
 text = {"aa":2,"bb":2,"cc":1}
 result = top_n(text, n=2)
 ##print(result)
+
+
+from pathlib import Path
+import json
+def read_json(path_to_json: Path | str)-> list[dict]:
+    p=Path(path_to_json)
+    if not path_to_json.exists():
+        raise FileNotFoundError()
+    if path_to_json.suffix.lower()!=".json":
+        raise ValueError()
+    with p.open("r") as f:
+        text = f.read()
+    if text== "":
+        raise ValueError
+    result=json.loads(text)
+    return result
+
+
+def write_json(path_to_text: Path | str ,text: list[dict])->None:
+    p=Path(path_to_text)
+    if not path_to_text.exists():
+        raise FileNotFoundError()
+    if text== []:
+        raise ValueError()
+    with p.open("w",text) as f:
+        f.write(json.dumps(text))
+   
+
+def read_csv(path_to_csv: Path | str )->list[str]:
+    p=Path(path_to_csv)
+    if not path_to_csv.exists():
+        raise FileNotFoundError()
+    if path_to_csv.suffix.lower()!=".csv":
+        raise ValueError()
+    with p.open("r") as f:
+        text = f.read()
+    if text== "":
+        raise ValueError()
+    text=text.split("\n")
+    result=[]
+    for one in text:
+        result.append(one.split(", "))
+    return result
+
+
+def csv_to_xlsx
