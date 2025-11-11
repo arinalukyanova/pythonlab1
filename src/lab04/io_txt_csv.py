@@ -12,22 +12,20 @@ def read_text(path: str | Path, encoding: str = "utf-8") -> str:
 ##print(result)
 
 
-def write_csv(rows: list[tuple | list], path: str | Path,
-              header: tuple[str, ...] | None = None) -> None:
+def write_csv(rows: list[tuple | list], path: str | Path, 
+            header: tuple[str, ...] | None = None, *, file_name: str = None) -> None: 
     p = Path(path)
-    rows = list(rows)
     if not rows and header is None:
-            raise ValueError
+        raise ValueError('Нельзя создать пустой CVS без заголовка и данных')
     row_length = len(rows[0]) if rows else len(header)
     for r in rows:
         if len(r) != row_length:
-            raise ValueError
+            raise ValueError(f"Несовпадение длины строк: ожидалось {row_length}, а получено {len(r)}")
     if header is not None and len(header) != row_length:
-        raise ValueError
-    with p.open("w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
+        raise ValueError('Длина header не совпадает с длиной строки')
+    with p.open('w', newline='', encoding = 'utf-8') as f:
+        writer = csv.writer(f)
         if header is not None:
-            w.writerow(header)
-        for r in rows:
-            w.writerow(r)
+            writer.writerow(header)
+        writer.writerows(rows)
 

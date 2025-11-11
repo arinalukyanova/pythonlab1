@@ -1,3 +1,5 @@
+from pathlib import Path
+import json,csv
 def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     if casefold==True:
         text=text.casefold()
@@ -49,8 +51,6 @@ result = top_n(text, n=2)
 ##print(result)
 
 
-from pathlib import Path
-import json
 def read_json(path_to_json: Path | str)-> list[dict]:
     p=Path(path_to_json)
     if not path_to_json.exists():
@@ -82,14 +82,15 @@ def read_csv(path_to_csv: Path | str )->list[str]:
     if path_to_csv.suffix.lower()!=".csv":
         raise ValueError()
     with p.open("r") as f:
-        text = f.read()
+        reader=csv.reader(f)
+        text=reader
     if text== "":
         raise ValueError()
     text=text.split("\n")
     result=[]
     for one in text:
         result.append(one.split(", "))
-    return result
+    return list(result)
 
 
 def csv_to_xlsx
