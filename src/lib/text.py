@@ -42,55 +42,53 @@ result2=count_freq(tokens)
 ##print(count_freq(tokenize(normalize(text))))
 
 
-def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
-    items = freq.items()
-    sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
-    return sorted_items[:n]
-text = {"aa":2,"bb":2,"cc":1}
-result = top_n(text, n=2)
+##def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
+    ##items = freq.items()
+    ##sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
+    ##return sorted_items[:n]
+##text = {"aa":2,"bb":2,"cc":1}
+##result = top_n(text, n=2)
 ##print(result)
 
 
-def read_json(path_to_json: Path | str)-> list[dict]:
-    p=Path(path_to_json)
+def read_json(path_to_json: Path | str)-> list[str]:
+    path_to_json=Path(path_to_json)
     if not path_to_json.exists():
         raise FileNotFoundError()
     if path_to_json.suffix.lower()!=".json":
         raise ValueError()
-    with p.open("r") as f:
-        text = f.read()
+    with path_to_json.open() as f:
+        reader = csv.reader(f)
+        text= list(reader)
     if text== "":
         raise ValueError
     result=json.loads(text)
     return result
 
 
-def write_json(path_to_text: Path | str ,text: list[dict])->None:
-    p=Path(path_to_text)
+def write_json(path_to_text: Path | str ,text1: list[dict])->None:
+    path_to_text=Path(path_to_text)
     if not path_to_text.exists():
         raise FileNotFoundError()
-    if text== []:
+    if text1== []:
         raise ValueError()
-    with p.open("w",text) as f:
-        f.write(json.dumps(text))
+    with path_to_text.open('w', encoding='utf-8') as f:
+        f.write(json.dumps(text1, ensure_ascii=False, indent=4))
    
 
 def read_csv(path_to_csv: Path | str )->list[str]:
-    p=Path(path_to_csv)
+    path_to_csv=Path(path_to_csv)
     if not path_to_csv.exists():
         raise FileNotFoundError()
     if path_to_csv.suffix.lower()!=".csv":
         raise ValueError()
-    with p.open("r") as f:
+    with path_to_csv.open() as f:
         reader=csv.reader(f)
-        text=reader
-    if text== "":
+        text3=list(reader)
+    if not text3: 
         raise ValueError()
-    text=text.split("\n")
-    result=[]
-    for one in text:
-        result.append(one.split(", "))
-    return list(result)
+    if text3== "":
+        raise ValueError()
+    return text3
 
 
-def csv_to_xlsx
