@@ -16,5 +16,4 @@ def csv_to_xlsx(csv_path: Path, xlsx_path: Path) -> None:
 if __name__ == "__main__":
     path_input = 'data/samples/people.csv'
     path_output = 'data/out/people.xlsx'
-    Path(path_output).parent.mkdir(parents=True, exist_ok=True)
     csv_to_xlsx(path_input, path_output)
