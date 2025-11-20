@@ -516,5 +516,5 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-![скриншот 34](/images/lab06/cat.png)
+![скриншот 34](/images/lab06/cat1.png)
 ![скриншот 35](/images/lab06/stats.png)
