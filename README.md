@@ -430,3 +430,91 @@ if __name__ == "__main__":
     csv_to_xlsx(path_input, path_output)
 ```
 ![скриншот 30](/images/lab05/csv_xlsx.png)
+
+
+## Лабораторная работа 6
+
+Задание 1
+```python 
+import argparse
+from pathlib import Path
+from lab05.json_csv import json_to_csv, csv_to_json
+from lab05.csv_xlsx import csv_to_xlsx
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Конверты данных")
+    subparsers = parser.add_subparsers(dest="command")
+
+    json2csv = subparsers.add_parser("json2csv", help="перевод из json в csv файл")
+    json2csv.add_argument("--in", required=True, type=Path, dest="path_in")
+    json2csv.add_argument("--out", required=True, type=Path, dest="path_out")
+
+    csv2json = subparsers.add_parser("csv2json", help="перевод из csv в json файл")
+    csv2json.add_argument("--in", required=True, type=Path, dest="path_in")
+    csv2json.add_argument("--out", required=True, type=Path, dest="path_out")
+
+    csv2xlsx = subparsers.add_parser("csv2xlsx", help="перевод из csv в xlsx файл")
+    csv2xlsx.add_argument("--in", required=True, type=Path, dest="path_in")
+    csv2xlsx.add_argument("--out", required=True, type=Path, dest="path_out")
+
+    args = parser.parse_args()
+
+    if args.command == "json2csv":
+        json_to_csv(args.path_in, args.path_out)
+    elif args.command == "csv2json":
+        csv_to_json(args.path_in, args.path_out)
+    elif args.command == "csv2xlsx":
+        csv_to_xlsx(args.path_in, args.path_out)
+
+if __name__ == "__main__":
+    main()
+```
+![скриншот 31](/images/lab06/json2csv.png)
+![скриншот 32](/images/lab06/csv2json.png)
+![скриншот 33](/images/lab06/csv2xlsx.png)
+
+
+Задание 2
+```python 
+import argparse
+from pathlib import Path
+
+from lab03.text_stats import text_stats
+
+
+def main():
+    parser = argparse.ArgumentParser(description="CLI-утилиты лабораторной №6")
+    subparsers = parser.add_subparsers(dest="command")
+
+    cat_parser = subparsers.add_parser("cat", help="Вывести содержимое файла")
+    cat_parser.add_argument("--input", required=True, type=Path)
+    cat_parser.add_argument("-n", action="store_true", help="Нумеровать строки")
+
+    stats_parser = subparsers.add_parser("stats", help="Частота строк")
+    stats_parser.add_argument("--input", type=str, required=True)
+    stats_parser.add_argument("--top", type=int, default=5)
+    stats_parser.add_argument("-p", action="store_true", help="Output in table form")
+
+    args = parser.parse_args()
+
+    if not args.command:
+        parser.error("You")
+
+    if args.command == "cat":
+        with args.input.open("r", encoding="utf-8") as f:
+            for number, text in enumerate(f):
+                if args.n:
+                    print(f"{number + 1}: {text.strip()}")
+                else:
+                    print(text.strip())
+    elif args.command == "stats":
+        with open(args.input, "r", encoding="utf-8") as f:
+            text = f.read()
+        text_stats(text, n=args.top)
+
+if __name__ == "__main__":
+    main()
+```
+![скриншот 34](/images/lab06/cat.png)
+![скриншот 35](/images/lab06/stats.png)

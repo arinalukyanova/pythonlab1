@@ -42,12 +42,12 @@ result2=count_freq(tokens)
 ##print(count_freq(tokenize(normalize(text))))
 
 
-##def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
-    ##items = freq.items()
-    ##sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
-    ##return sorted_items[:n]
-##text = {"aa":2,"bb":2,"cc":1}
-##result = top_n(text, n=2)
+def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
+    items = freq.items()
+    sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
+    return sorted_items[:n]
+text = {"aa":2,"bb":2,"cc":1}
+result = top_n(text, n=2)
 ##print(result)
 
 
@@ -58,11 +58,9 @@ def read_json(path_to_json: Path | str)-> list[str]:
     if path_to_json.suffix.lower()!=".json":
         raise ValueError()
     with path_to_json.open() as f:
-        reader = csv.reader(f)
-        text= list(reader)
+        result=json.load(f)
     if text== "":
         raise ValueError
-    result=json.loads(text)
     return result
 
 
