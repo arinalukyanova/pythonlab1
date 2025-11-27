@@ -10,5 +10,7 @@ def col_sums(mat: list[list[float | int]]) -> list[float]:
         for i in range(kol_simv_in_first):
             sums[i] += row[i]
     return sums
-mat=[[-1, 1], [10, -10]]
+
+
+mat = [[-1, 1], [10, -10]]
 print(col_sums(mat))

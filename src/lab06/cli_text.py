@@ -34,5 +34,6 @@ def main():
             text = f.read()
         text_stats(text, n=args.top)
 
+
 if __name__ == "__main__":
     main()
