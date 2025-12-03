@@ -18,7 +18,7 @@ def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
 
 text = "Hello\r\nWorld"
 result = normalize(text)
-print(result)
+##print(result)
 
 
 import re
@@ -31,7 +31,7 @@ def tokenize(text: str) -> list[str]:
 
 text = "emoji 😀 не слово"
 result = tokenize(text)
-print(result)
+##print(result)
 
 
 def count_freq(tokens: list[str]) -> dict[str, int]:
@@ -46,7 +46,7 @@ def count_freq(tokens: list[str]) -> dict[str, int]:
 
 tokens = ["a", "b", "a", "c", "b", "a"]
 result2 = count_freq(tokens)
-print(result2)
+##print(result2)
 
 ##print(count_freq(tokenize(normalize(text))))
 
@@ -59,26 +59,32 @@ def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
 
 text = {"aa": 2, "bb": 2, "cc": 1}
 result = top_n(text, n=2)
-print(result)
+##print(result)
 
 
-def read_json(path_to_json: Path | str) -> list[str]:
+def read_json(path_to_json: Path | str) -> list[dict]:
     path_to_json = Path(path_to_json)
     if not path_to_json.exists():
-        raise FileNotFoundError()
+        raise FileNotFoundError("Файл не найден")
     if path_to_json.suffix.lower() != ".json":
         raise ValueError()
     with path_to_json.open() as f:
-        result = json.load(f)
-    if text == "":
-        raise ValueError
-    return result
+        content = " ".join(f.readlines())
+    if content == "":
+        raise ValueError()
+    content = json.loads(content)
+    if not (isinstance(content, list)):
+        raise ValueError()
+    if not all(isinstance(one, dict) for one in content):
+        raise ValueError()
+    return content
 
 
-def write_json(path_to_text: Path | str, text1: list[dict]) -> None:
+
+def write_json(text1: list[dict],path_to_text: Path | str,) -> None:
     path_to_text = Path(path_to_text)
     if not path_to_text.exists():
-        raise FileNotFoundError()
+        raise FileNotFoundError("Файл не найден")
     if text1 == []:
         raise ValueError()
     with path_to_text.open("w", encoding="utf-8") as f:
@@ -92,10 +98,9 @@ def read_csv(path_to_csv: Path | str) -> list[str]:
     if path_to_csv.suffix.lower() != ".csv":
         raise ValueError()
     with path_to_csv.open() as f:
-        reader = csv.reader(f)
-        text3 = list(reader)
-    if not text3:
-        raise ValueError()
-    if text3 == "":
-        raise ValueError()
-    return text3
+        content = "".join(f.readlines())
+    if content == "":
+        raise ValueError("Csv is empty")
+    result = [list(one.split(",")) for one in content.split("\n")]
+    result.remove([''])
+    return result
