@@ -632,3 +632,100 @@ def test_csv_to_json(input_path, output_path, expected):
         assert read_json(output_path) == expected
 ```
 ![скриншот 37](/images/lab07/test_json_csv.png)
+
+
+## Лабораторная работа 8
+
+Задание 1
+```python
+import datetime
+from dataclasses import dataclass
+
+
+@dataclass
+class Student:
+    fio: str
+    birthdate: str
+    group: str
+    gpa: float
+
+    def __post_init__(self):
+        try:
+           self.birthdate_obj= datetime.datetime.strptime(self.birthdate, "%Y/%m/%d")
+        except ValueError:
+            raise ValueError("Неправильный формат вводы даты рождения. Попробуйте YYYY/MM/DD")
+        if not isinstance(self.fio,str):
+            raise TypeError("ФИО должно быть в виде строки")
+        if len(self.fio.split())!=3:
+            raise ValueError("ФИО должно состоять из трех слов")
+        
+        if not (0 <= self.gpa <= 10):
+            raise ValueError("Gpa должно быть не меньше 0 и не больше 10")
+
+    def age(self) -> int:
+        birthdate = self.birthdate_obj
+        today = datetime.date.today()
+        age=(
+            today.year
+            - birthdate.year
+            - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        )
+        return age
+
+    def to_dict(self) -> dict:
+        return {
+            "fio": self.fio,
+            "birthdate": self.birthdate,
+            "group":self.group,
+            "gpa": self.gpa,
+        }
+
+    @classmethod
+    def from_dict(cls, d: dict):
+        required=["fio","birthdate","group","gpa"]
+        for i in required:
+            if i not in d.keys():
+                raise ValueError("Dict must contain fio, birthdate, group, gpa")
+        return cls(
+            fio=d["fio"],
+            birthdate=d["birthdate"],
+            group=d["group"],
+            gpa=d["gpa"],
+        )
+
+    def __str__(self):
+        return f"{self.fio}, {self.group},{self.birthdate}, GPA:{self.gpa}"
+```
+
+
+Задание 2 
+```python
+from pathlib import Path
+from lab08.models import Student 
+from lib.text import write_json,read_json
+
+
+def students_to_json(students: list[Student], path:Path)->None:
+    path = Path(path) 
+    path.parent.mkdir(parents=True, exist_ok=True)
+    data = [s.to_dict() for s in students]
+    write_json(data, path)
+
+
+def students_from_json(path:Path)->list[Student]:
+    content=read_json(path)
+    result=[
+        Student(
+            one.get("fio", None),
+            one.get("birthdate", None),
+            one.get("group", None),
+            one.get("gpa", None),
+        )
+        for one in content
+    ]
+    return result
+if __name__=="__main__":
+    Arina=Student("Arina Lukyanova Sergeevna","2003/11/09","Misis",4.8)
+    students_to_json([Arina],"data/lab08/students_output.json")
+```
+![скриншот 38](/images/lab08/rerialize.png)
