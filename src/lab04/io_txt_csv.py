@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from src.lib.text import normalize
+from lib.text import normalize
 
 
 def read_text(path: str | Path, encoding: str = "utf-8") -> str:

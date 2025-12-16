@@ -102,5 +102,6 @@ def read_csv(path_to_csv: Path | str) -> list[str]:
     if content == "":
         raise ValueError("Csv is empty")
     result = [list(one.split(",")) for one in content.split("\n")]
-    result.remove([''])
+    if [''] in result:
+        result.remove([''])
     return result
