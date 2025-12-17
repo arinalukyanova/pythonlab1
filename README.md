@@ -811,3 +811,135 @@ if __name__ == "__main__":
 ```
 ![скриншот 39](/images/lab09/group.png)
 ![скриншот 40](/images/lab09/student.png)
+
+
+## Лабораторная работа 10
+
+Задание 1
+```python
+from collections import deque
+from typing import Any
+
+class Queue:
+    def __init__(self):
+        self._data: deque[Any] = deque()
+
+    def enqueue(self, item) -> None:
+        self._data.appendleft(item)
+
+    def dequeue(self) -> Any:
+        if self.__len__ == 0:
+            raise IndexError("")
+        return self._data.pop()
+
+    def peak(self) -> Any | None:
+        if self.__len__ == 0:
+            raise IndexError("")
+        return self._data[-1]
+
+    def is_empty(self) -> bool:
+        if self.__len__ == 0:
+            return True
+        return False
+
+    def __len__(self) -> int:
+        return len(self._data)
+
+
+class Stack:
+    def __init__(self):
+        self._data: list[Any] = []
+
+    def push(self, item) -> None:
+        self._data.append(item)
+
+    def pop(self) -> Any:
+        if self.__len__ == 0:
+            raise IndexError("Sosi pissy")
+        return self._data.pop()
+
+    def peek(self) -> Any | None:
+        if self.__len__ == 0:
+            return None
+        return self._data[-1]
+
+    def is_empty(self) -> bool:
+        if self.__len__ == 0:
+            return True
+        return False
+
+    def __len__(self) -> int:
+        return len(self._data)
+```
+![скриншот 41](/images/lab10/structures.png)
+
+
+Задание 2
+```python
+class Node:
+    def __init__(self, value: any, next):
+        self.value = value
+        self.next = next
+
+
+class SinglyLinkedList:
+    def __init__(self, head: Node, tail: Node):
+        self.head = None
+        self.tail = None
+        self._size: int = 0
+
+    def append(self, value: any) -> None:
+        new = Node(value, None)
+        if self.head == None:
+            self.head = new
+            self.tail = new
+        else:
+            self.tail.next = new
+            self.tail = new
+        self._size += 1
+
+    def prepend(self, value: any) -> None:
+        new = Node(value, self.head)
+        self.head = new
+        if self.tail == None:
+            self.tail = new
+        self._size += 1
+
+    def insert(self, idx: int, value: any) -> None:
+        if not (0 < idx < self.__len__):
+            raise IndexError("")
+        cur = self.head
+        for i in range(idx - 1):
+            cur = cur.next
+        new = Node(value, None)
+        new.next = cur.next
+        cur.next = new
+        self._size += 1
+
+    def remove(self, value: any) -> None:
+        if self.head == None:
+            return
+        old = cur
+        cur = self.head
+        while cur.next:
+            if cur.next.value == value:
+                cur.next = cur.next.next
+                if cur.next is None:
+                    self.tail = cur
+                self._size -= 1
+                return
+            cur = cur.next
+
+    def __iter__(self):
+        current = self.head
+        while current is not None:
+            yield current.value
+            current = current.next
+
+    def __len__(self) -> int:
+        return self._size
+
+    def __rerp__(self) -> str:
+        return f"SinglyLinkedList({list(self)})"
+```
+![скриншот 42](/images/lab10/linked_list.png)
